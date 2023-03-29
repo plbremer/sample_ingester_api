@@ -98,44 +98,49 @@ class PredictVocabularyTermsResource(Resource):
 
 
     def get_neighbors(self):
-        try:
-            vectorized_string=self.tfidf_vectorizer.transform([str(self.written_string)])
-        except NotFittedError:
+        
+        for written_string in self.written_strings:
+            try:
+                vectorized_string=self.tfidf_vectorizer.transform([str(written_string)])
+            except NotFittedError:
 
-            output_df=pd.DataFrame.from_dict(
-                {
-                    'guessed_valid_strings':[None],
-                    'guessed_valid_string_distances':[None]
-                }
+                output_df=pd.DataFrame.from_dict(
+                    {
+                        'guessed_valid_strings':[None],
+                        'guessed_valid_string_distances':[None]
+                    }
+                )
+
+            #if there are fewer neighbors to retrieve than we want, set the neighbors to the max available
+            if (self.nearest_neighbors.n_samples_fit_) < self.neighbors_to_retrieve:
+                self.neighbors_to_retrieve=self.nearest_neighbors.n_samples_fit_
+
+            #kn_ind is an array of indices of the nieghbors in the training matrix
+            similarities,kn_ind=self.nearest_neighbors.kneighbors(
+                vectorized_string,
+                self.neighbors_to_retrieve
             )
+            #print(similarities)
+            #print(kn_ind[0])
+            #print(vocabulary_dict[temp_header_core_vocabulary])
+            #print('2345678982345678904356789034567890-4567890-34567892345678982345678904356789034567890-4567890-3456789')
+            #ISSUE 33
+            # vocabulary_dict[temp_header]=temp_panda[0].values
+            # output_dict[temp_header][temp_written_string]=vocabulary_dict[temp_header_core_vocabulary][kn_ind[0]]
+            # output_dict[temp_header][temp_written_string]=(
+            #     similarities[0],
+            #     vocabulary_dict[temp_header_core_vocabulary][0].values[kn_ind[0]]
+            # )
+            neighbors_df=pd.DataFrame.from_dict(
+                {
+                    'written_string':[written_string for similarity in similarities[0]],
+                    'guessed_valid_strings':self.vocabulary[kn_ind[0]],
+                    'guessed_valid_string_distances':similarities[0],
+                    
+                }
+            )       
+            self.neighbors_panda_list.append(neighbors_df)
 
-        #if there are fewer neighbors to retrieve than we want, set the neighbors to the max available
-        if (self.nearest_neighbors.n_samples_fit_) < self.neighbors_to_retrieve:
-            self.neighbors_to_retrieve=self.nearest_neighbors.n_samples_fit_
-
-        #kn_ind is an array of indices of the nieghbors in the training matrix
-        similarities,kn_ind=self.nearest_neighbors.kneighbors(
-            vectorized_string,
-            self.neighbors_to_retrieve
-        )
-        #print(similarities)
-        #print(kn_ind[0])
-        #print(vocabulary_dict[temp_header_core_vocabulary])
-        #print('2345678982345678904356789034567890-4567890-34567892345678982345678904356789034567890-4567890-3456789')
-        #ISSUE 33
-        # vocabulary_dict[temp_header]=temp_panda[0].values
-        # output_dict[temp_header][temp_written_string]=vocabulary_dict[temp_header_core_vocabulary][kn_ind[0]]
-        # output_dict[temp_header][temp_written_string]=(
-        #     similarities[0],
-        #     vocabulary_dict[temp_header_core_vocabulary][0].values[kn_ind[0]]
-        # )
-        self.neighbors_df=output_df=pd.DataFrame.from_dict(
-            {
-                'guessed_valid_strings':self.vocabulary[kn_ind[0]],
-                'guessed_valid_string_distances':similarities[0],
-
-            }
-        )       
         #return output_df 
 
         # self.nearest_neighbors
@@ -154,19 +159,20 @@ class PredictVocabularyTermsResource(Resource):
         # ]
         #print(conglomerate_vocabulary_panda_dict[temp_header_core_vocabulary])
 
-        self.neighbors_df=self.neighbors_df.merge(
-            self.conglomerate_vocabulary_panda,
-            how='left',
-            left_on='guessed_valid_strings',
-            right_on='valid_string'
-        ).drop_duplicates(subset=('main_string')).sort_values(by=['use_count','guessed_valid_string_distances'],ascending=[False,True])
+        for i in range(len(self.neighbors_panda_list)):
+            self.neighbors_panda_list[i]=self.neighbors_panda_list[i].merge(
+                self.conglomerate_vocabulary_panda,
+                how='left',
+                left_on='guessed_valid_strings',
+                right_on='valid_string'
+            ).drop_duplicates(subset=('main_string')).sort_values(by=['use_count','guessed_valid_string_distances'],ascending=[False,True])
 
         # temp_concatenated=pd.concat(
-        self.neighbors_df.drop(
-            ['guessed_valid_strings','node_id','ontology'],
-            axis='columns',
-            inplace=True
-        )
+            self.neighbors_panda_list[i].drop(
+                ['guessed_valid_strings','node_id','ontology'],
+                axis='columns',
+                inplace=True
+            )
         #print(temp_relevant_nodes_rows)
         
         
@@ -222,18 +228,30 @@ class PredictVocabularyTermsResource(Resource):
         '''
 
         self.header=request.json['header']
-        self.written_string=request.json['written_string']
+        self.written_strings=request.json['written_strings']
         self.neighbors_to_retrieve=request.json['neighbors_to_retrieve']
 
 
         self.read_files()
+
+        self.neighbors_panda_list=list()
         self.get_neighbors()
         self.append_use_count_property()
+        
+        self.output_panda=pd.concat(
+            self.neighbors_panda_list,
+            axis='index',
+            ignore_index=True
+        )
+
+
         print('')
-        print(self.neighbors_df)
+        print(self.output_panda)
         print('')
 
-        return json.dumps(self.neighbors_df.to_dict('records'))
+
+
+        return json.dumps(self.output_panda.to_dict('records'))
 
 
 
