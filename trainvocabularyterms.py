@@ -6,8 +6,10 @@ from sklearn.exceptions import NotFittedError
 import json
 import pickle
 import pandas as pd
-import os
 from flask import request
+
+
+from newvocabularyuploadchecker import NewVocabularyUploadChecker
 
 # request
 
@@ -71,6 +73,14 @@ class TrainVocabularyTermsResource(Resource):
         # self.tfidf_vectorizer
         # self.conglomerate_vocabulary_panda
         # self.vocabulary
+
+    def validate_training_request(self):
+
+        self.NewVocabularyUploadChecker=NewVocabularyUploadChecker(self.written_strings)
+        self.NewVocabularyUploadChecker.check_char_length()
+        self.NewVocabularyUploadChecker.verify_string_absence()
+
+
     def append_to_conglomerate_panda(self):
 
     #now, for each key in this dict, append to the corresponding panda in the conglomerate dict, then output it again
@@ -152,12 +162,23 @@ class TrainVocabularyTermsResource(Resource):
 
         self.header=request.json['header']
         self.written_strings=request.json['written_strings']
-
+        
 
         self.read_files()
+
+
+        self.validate_training_request()
+        if len(self.NewVocabularyUploadChecker.error_list)>0:
+            return {'errors':self.NewVocabularyUploadChecker.error_list}
+
+
+
         self.append_to_conglomerate_panda()
         self.train_models()
         self.write_files_and_models()
+        
+        return 'training successful'
+        
         # self.get_neighbors()
         # self.append_use_count_property()
         # print('')
