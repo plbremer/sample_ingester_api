@@ -8,6 +8,8 @@ import json
 # from sqlalchemy.dialects import postgresql
 
 from predictvocabularyterms import PredictVocabularyTermsResource
+from trainvocabularyterms import TrainVocabularyTermsResource
+from updateusecount import UpdateUseCountResource
 
 app=Flask(__name__)
 api=Api(app)
@@ -24,7 +26,8 @@ api=Api(app)
 
 
 api.add_resource(PredictVocabularyTermsResource,'/predictvocabularytermsresource/')
-
+api.add_resource(TrainVocabularyTermsResource,'/trainvocabularytermsresource/')
+api.add_resource(UpdateUseCountResource,'/updateusecountresource/')
 
 if __name__ == '__main__':
     #app.run(debug=False,port=4999,host='0.0.0.0')

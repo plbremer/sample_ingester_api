@@ -1,5 +1,7 @@
 # from flask import Flask,request
 from flask_restful import Resource #Api, Resource, reqparse
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.neighbors import NearestNeighbors
 from sklearn.exceptions import NotFittedError
 import json
 import pickle
