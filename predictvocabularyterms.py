@@ -77,7 +77,7 @@ class PredictVocabularyTermsResource(Resource):
         '''
 
         self.header=request.json['header']
-        self.written_strings=request.json['new_vocabulary']
+        self.written_strings=request.json['written_strings']
         self.neighbors_to_retrieve=request.json['neighbors_to_retrieve']
 
         self.read_files()
