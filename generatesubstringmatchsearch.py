@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask import request
 
 
-class UpdateUseCountResource(Resource):
+class GenerateSubstringMatches(Resource):
 
     def read_files(self):
         # with open(f'additional_files/NearestNeighbors_{self.header}.bin','rb') as f:

@@ -105,13 +105,16 @@ class PredictVocabularyTermsResource(Resource):
             try:
                 vectorized_string=self.tfidf_vectorizer.transform([str(written_string)])
             except NotFittedError:
-
-                output_df=pd.DataFrame.from_dict(
+                print('not fitted')
+                neighbors_df=pd.DataFrame.from_dict(
                     {
                         'guessed_valid_strings':[None],
                         'guessed_valid_string_distances':[None]
                     }
                 )
+
+                self.neighbors_panda_list.append(neighbors_df)
+                continue
 
             #if there are fewer neighbors to retrieve than we want, set the neighbors to the max available
             if (self.nearest_neighbors.n_samples_fit_) < self.neighbors_to_retrieve:
@@ -232,7 +235,7 @@ class PredictVocabularyTermsResource(Resource):
         self.header=request.json['header']
         self.written_strings=request.json['written_strings']
         self.neighbors_to_retrieve=request.json['neighbors_to_retrieve']
-
+        print(self.written_strings)
 
         self.read_files()
 
@@ -245,11 +248,11 @@ class PredictVocabularyTermsResource(Resource):
             axis='index',
             ignore_index=True
         )
-
-
+        #print
+        
         print('')
         print(self.output_panda)
-        print('')
+        print('--------')
 
 
 

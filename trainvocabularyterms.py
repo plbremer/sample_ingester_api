@@ -177,7 +177,7 @@ class TrainVocabularyTermsResource(Resource):
         self.train_models()
         self.write_files_and_models()
         
-        return 'training successful'
+        return {'errors':self.NewVocabularyUploadChecker.error_list}
         
         # self.get_neighbors()
         # self.append_use_count_property()

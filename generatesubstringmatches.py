@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask import request
 
 
-class UpdateUseCountResource(Resource):
+class GenerateSubstringMatches(Resource):
 
     def read_files(self):
         # with open(f'additional_files/NearestNeighbors_{self.header}.bin','rb') as f:
@@ -19,18 +19,14 @@ class UpdateUseCountResource(Resource):
 
 
 
-    def update_use_count(self):
+    def generate_substring_matches(self):
+        '''
+        '''
+        self.temp_values=self.conglomerate_vocabulary_panda.loc[
+            self.conglomerate_vocabulary_panda['valid_string'].str.startswith(self.substring.lower())
+        ].drop_duplicates(subset=('main_string')).sort_values(['use_count','valid_string'],ascending=[False,True])[['valid_string','main_string']].agg(' AKA '.join, axis=1).tolist()
 
-    #now, for each key in this dict, append to the corresponding panda in the conglomerate dict, then output it again
-        self.conglomerate_vocabulary_panda['use_count']=self.conglomerate_vocabulary_panda['use_count'].where(
-            (~self.conglomerate_vocabulary_panda.main_string.isin(self.main_strings)),
-            other=1
-        )
-
-    def write_file(self):
-
-        self.conglomerate_vocabulary_panda.to_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
-
+        #return temp_values
 
     def post(self):
         '''
@@ -38,15 +34,15 @@ class UpdateUseCountResource(Resource):
         '''
 
         self.header=request.json['header']
-        self.main_strings=request.json['main_strings']
+        self.substring=request.json['substring']
 
 
         self.read_files()
-        self.update_use_count()
-        self.write_file()
+        self.generate_substring_matches()
+        
 
 
-        return 'use_count update successful'
+        return self.temp_values
         # self.append_to_conglomerate_panda()
         # self.train_models()
         # self.write_files_and_models()
