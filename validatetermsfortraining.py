@@ -1,4 +1,3 @@
-#import pandas as pd
 from flask_restful import Resource 
 from flask import request
 
@@ -27,11 +26,4 @@ class ValidateTermsForTrainingResource(Resource):
 
         self.validate_training_request()
 
-        print(self.NewVocabularyUploadChecker.error_list)
         return {'errors':self.NewVocabularyUploadChecker.error_list}
-        #return 'use_count update successful'
-        # self.append_to_conglomerate_panda()
-        # self.train_models()
-        # self.write_files_and_models()
-
-

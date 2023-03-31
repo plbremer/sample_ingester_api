@@ -56,35 +56,20 @@ from newvocabularyuploadchecker import NewVocabularyUploadChecker
 class TrainVocabularyTermsResource(Resource):
 
     def read_files(self):
-        # with open(f'additional_files/NearestNeighbors_{self.header}.bin','rb') as f:
-        #     self.nearest_neighbors=pickle.load(f)
-        # with open(f'additional_files/tfidfVectorizer_{self.header}.bin','rb') as f:
-        #     self.tfidf_vectorizer=pickle.load(f)
         self.conglomerate_vocabulary_panda=pd.read_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
-        # self.vocabulary=pd.read_pickle(f'additional_files/unique_valid_strings_{self.header}.bin')[0].values
 
         with open('additional_files/ngram_limits_per_heading.json', 'r') as fp:
             self.ngram_limits_per_heading_json=json.load(fp)
 
 
-
-
-        # self.nearest_neighbors
-        # self.tfidf_vectorizer
-        # self.conglomerate_vocabulary_panda
-        # self.vocabulary
-
     def validate_training_request(self):
-
         self.NewVocabularyUploadChecker=NewVocabularyUploadChecker(self.written_strings)
         self.NewVocabularyUploadChecker.check_char_length()
         self.NewVocabularyUploadChecker.verify_string_absence()
 
 
     def append_to_conglomerate_panda(self):
-
     #now, for each key in this dict, append to the corresponding panda in the conglomerate dict, then output it again
-
         appending_dict={
             'valid_string':[],
             'node_id':[],
@@ -118,28 +103,19 @@ class TrainVocabularyTermsResource(Resource):
             ngram_range=self.ngram_limits_per_heading_json[self.header],
             use_idf=False,
             norm=None
-            #max_df=1,
-            #max_df=1,
-            #min_df=0.001
         )
         self.tfidf_matrix=self.TfidfVectorizer.fit_transform(self.model_vocabulary)
-        # with open(f'additional_files/tfidfVectorizer_{temp_key}.bin','wb') as fp:
-        #     pickle.dump(temp_TfidfVectorizer,fp)
-        
+
         self.NN_model=NearestNeighbors(
             n_neighbors=50,
             n_jobs=5,
             metric='cosine'
         )
         self.NN_model.fit(self.tfidf_matrix)
-        # with open(f'additional_files/NearestNeighbors_{temp_key}.bin','wb') as fp:
-        #     pickle.dump(temp_NN_model,fp)        
-        #update the unique strings list
+
     
 
     def write_files_and_models(self):
-        # pass
-
 
         with open(f'additional_files/tfidfVectorizer_{self.header}.bin','wb') as fp:
             pickle.dump(self.TfidfVectorizer,fp)
@@ -178,12 +154,3 @@ class TrainVocabularyTermsResource(Resource):
         self.write_files_and_models()
         
         return {'errors':self.NewVocabularyUploadChecker.error_list}
-        
-        # self.get_neighbors()
-        # self.append_use_count_property()
-        # print('')
-        # print(self.neighbors_df)
-        # print('')
-
-        # return json.dumps(self.neighbors_df.to_dict('records'))
-
