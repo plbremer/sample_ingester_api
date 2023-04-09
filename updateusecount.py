@@ -27,8 +27,8 @@ class UpdateUseCountResource(Resource):
 
         self.header=request.json['header']
         self.main_string=request.json['main_string']
-        print('++++++++++++++++++++++++')
-        print(self.main_string)
+        #print('++++++++++++++++++++++++')
+        #print(self.main_string)
 
         self.read_files()
         self.update_use_count()
