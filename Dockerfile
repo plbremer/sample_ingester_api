@@ -19,4 +19,4 @@ EXPOSE 4999
 
 SHELL ["conda", "run", "-n", "sample_ingester_api_min", "/bin/bash", "-c"]
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "sample_ingester_api_min", "python", "./parent_api.py"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "sample_ingester_api_min", "python", "./parentapi.py"]
