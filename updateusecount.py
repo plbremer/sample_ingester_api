@@ -11,7 +11,7 @@ class UpdateUseCountResource(Resource):
     def update_use_count(self):
     #now, for each key in this dict, append to the corresponding panda in the conglomerate dict, then output it again
         self.conglomerate_vocabulary_panda['use_count']=self.conglomerate_vocabulary_panda['use_count'].where(
-            (~self.conglomerate_vocabulary_panda.main_string.isin(self.main_strings)),
+            (~self.conglomerate_vocabulary_panda.main_string.isin([self.main_string])),
             other=1
         )
 
@@ -26,8 +26,9 @@ class UpdateUseCountResource(Resource):
         '''
 
         self.header=request.json['header']
-        self.main_strings=request.json['main_strings']
-
+        self.main_string=request.json['main_string']
+        print('++++++++++++++++++++++++')
+        print(self.main_string)
 
         self.read_files()
         self.update_use_count()

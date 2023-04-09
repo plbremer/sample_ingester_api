@@ -17,9 +17,9 @@ api=Api(app)
 api.add_resource(PredictVocabularyTermsResource,'/predictvocabularytermsresource/')
 api.add_resource(TrainVocabularyTermsResource,'/trainvocabularytermsresource/')
 api.add_resource(UpdateUseCountResource,'/updateusecountresource/')
-api.add_resource(ValidateTermsForTrainingResource,'/validatetermsfortraining/')
-api.add_resource(GenerateSubstringMatches,'/generatesubstringmatches/')
+api.add_resource(ValidateTermsForTrainingResource,'/validatetermsfortrainingresource/')
+api.add_resource(GenerateSubstringMatches,'/generatesubstringmatchesresource/')
 
 if __name__ == '__main__':
     #app.run(debug=False,port=4999,host='0.0.0.0')
-    app.run(debug=False,port=4999,host='0.0.0.0')
+    app.run(debug=True,port=4999,host='0.0.0.0')

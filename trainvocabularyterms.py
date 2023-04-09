@@ -135,19 +135,22 @@ class TrainVocabularyTermsResource(Resource):
         '''
         takes a set of words and add them to the vocabularies and models
         '''
-
+        print('in post')
         self.header=request.json['header']
-        self.written_strings=request.json['written_strings']
+        self.written_strings=request.json['new_vocabulary']
         
 
         self.read_files()
 
 
+
         self.validate_training_request()
+        
+        print(self.NewVocabularyUploadChecker.error_list)
         if len(self.NewVocabularyUploadChecker.error_list)>0:
             return {'errors':self.NewVocabularyUploadChecker.error_list}
 
-
+        print('we can do training - no errors')
 
         self.append_to_conglomerate_panda()
         self.train_models()
