@@ -12,7 +12,8 @@ class GenerateSubstringMatches(Resource):
         '''
         '''
         self.temp_values=self.conglomerate_vocabulary_panda.loc[
-            self.conglomerate_vocabulary_panda['valid_string'].str.startswith(self.substring.lower())
+            # self.conglomerate_vocabulary_panda['valid_string'].str.startswith(self.substring.lower())
+            self.conglomerate_vocabulary_panda['valid_string'].str.contains(self.substring.lower())
         ].drop_duplicates(subset=('main_string')).sort_values(['use_count','valid_string'],ascending=[False,True])[['valid_string','main_string']].agg(' AKA '.join, axis=1).tolist()
 
     def post(self):
