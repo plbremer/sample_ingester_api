@@ -1,8 +1,3 @@
-
-
-
-
-# from flask import Flask,request
 from flask_restful import Resource #Api, Resource, reqparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
@@ -12,11 +7,6 @@ import pickle
 import pandas as pd
 from flask import request
 
-
-# from newvocabularyuploadchecker import NewVocabularyUploadChecker
-
-
-
 class TrainVocabularyResource(Resource):
 
 
@@ -24,24 +14,9 @@ class TrainVocabularyResource(Resource):
         '''
         takes a set of words and add them to the vocabularies and models
         '''
-        # print('in post')
         self.header=request.json['header']
-        # self.written_strings=request.json['new_vocabulary']
-        
-
         self.read_files()
 
-
-
-        # self.validate_training_request()
-        
-        # # print(self.NewVocabularyUploadChecker.error_list)
-        # if len(self.NewVocabularyUploadChecker.error_list)>0:
-        #     return {'errors':self.NewVocabularyUploadChecker.error_list}
-
-        # print('we can do training - no errors')
-
-        # self.append_to_conglomerate_panda()
         self.train_models()
         self.write_models()
         
@@ -82,8 +57,6 @@ class TrainVocabularyResource(Resource):
 
         with open(f'additional_files/NearestNeighbors_{self.header}.bin','wb') as fp:
             pickle.dump(self.NN_model,fp)
-
-        # self.conglomerate_vocabulary_panda.to_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
         output_vocab_panda=pd.DataFrame.from_dict(
             self.model_vocabulary

@@ -20,10 +20,8 @@ class PredictVocabularyTermsResource(Resource):
 
         temp_translator=pd.read_csv(f'assets/prediction_short_string_translations.tsv',sep='\t',na_filter=False)
         self.short_string_translator=dict(zip(temp_translator.short.tolist(),temp_translator.long.tolist()))
-        # print(self.short_string_translator)
 
     def get_neighbors(self):
-        
         for written_string in self.written_strings:
             try:
                 vectorized_string=self.tfidf_vectorizer.transform([str(written_string)])
@@ -62,7 +60,6 @@ class PredictVocabularyTermsResource(Resource):
     def append_use_count_property(self):
         #originally we had a for loop, but the problem with that was taht was that we were getting a result for each 
         #valid string that the written string mapped to. this meant that we coudl get the same main strin multiple times.
-
         for i in range(len(self.neighbors_panda_list)):
             self.neighbors_panda_list[i]=self.neighbors_panda_list[i].merge(
                 self.conglomerate_vocabulary_panda,
@@ -85,12 +82,7 @@ class PredictVocabularyTermsResource(Resource):
         self.written_strings=request.json['written_strings']
         self.neighbors_to_retrieve=request.json['neighbors_to_retrieve']
 
-
-
-        # pprint(request.json)
-
         self.read_files()
-
 
         #swap things like 'wt' that are too shrot for trigrams out with longer terms
         for i in range(len(self.written_strings)):
@@ -107,7 +99,5 @@ class PredictVocabularyTermsResource(Resource):
             axis='index',
             ignore_index=True
         )
-
-        # print(self.output_panda)
 
         return json.dumps(self.output_panda.to_dict('records'))
