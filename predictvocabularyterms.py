@@ -6,6 +6,7 @@ import json
 import pickle
 import pandas as pd
 from flask import request
+from pprint import pprint
 
 class PredictVocabularyTermsResource(Resource):
 
@@ -16,6 +17,10 @@ class PredictVocabularyTermsResource(Resource):
             self.tfidf_vectorizer=pickle.load(f)
         self.conglomerate_vocabulary_panda=pd.read_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
         self.vocabulary=pd.read_pickle(f'additional_files/unique_valid_strings_{self.header}.bin')[0].values
+
+        temp_translator=pd.read_csv(f'assets/prediction_short_string_translations.tsv',sep='\t',na_filter=False)
+        self.short_string_translator=dict(zip(temp_translator.short.tolist(),temp_translator.long.tolist()))
+        # print(self.short_string_translator)
 
     def get_neighbors(self):
         
@@ -80,7 +85,18 @@ class PredictVocabularyTermsResource(Resource):
         self.written_strings=request.json['written_strings']
         self.neighbors_to_retrieve=request.json['neighbors_to_retrieve']
 
+
+
+        # pprint(request.json)
+
         self.read_files()
+
+
+        #swap things like 'wt' that are too shrot for trigrams out with longer terms
+        for i in range(len(self.written_strings)):
+            if self.written_strings[i] in self.short_string_translator.keys():
+                self.written_strings[i]=self.short_string_translator[self.written_strings[i]]
+
 
         self.neighbors_panda_list=list()
         self.get_neighbors()
@@ -91,5 +107,7 @@ class PredictVocabularyTermsResource(Resource):
             axis='index',
             ignore_index=True
         )
+
+        # print(self.output_panda)
 
         return json.dumps(self.output_panda.to_dict('records'))
