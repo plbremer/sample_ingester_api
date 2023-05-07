@@ -101,4 +101,6 @@ class PredictVocabularyTermsResource(Resource):
             ignore_index=True
         )
 
+        print(self.output_panda)
+
         return json.dumps(self.output_panda.to_dict('records'))
