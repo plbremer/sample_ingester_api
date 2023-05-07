@@ -54,7 +54,8 @@ class PredictVocabularyTermsResource(Resource):
                     'guessed_valid_string_distances':similarities[0],
                     
                 }
-            )       
+            )     
+            print(neighbors_df)  
             self.neighbors_panda_list.append(neighbors_df)
 
     def append_use_count_property(self):

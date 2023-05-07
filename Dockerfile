@@ -4,7 +4,7 @@ COPY ./sample_ingester_api_min.yml /
 
 RUN conda env create -f sample_ingester_api_min.yml 
 
-RUN mkdir /pages && mkdir /assets && mkdir /additional_files && mkdir /assets
+RUN mkdir /assets && mkdir /additional_files
 
 COPY ./assets/* /assets/
 
