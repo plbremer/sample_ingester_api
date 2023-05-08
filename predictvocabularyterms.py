@@ -55,7 +55,7 @@ class PredictVocabularyTermsResource(Resource):
                     
                 }
             )     
-            print(neighbors_df)  
+            # print(neighbors_df)  
             self.neighbors_panda_list.append(neighbors_df)
 
     def append_use_count_property(self):
@@ -101,6 +101,6 @@ class PredictVocabularyTermsResource(Resource):
             ignore_index=True
         )
 
-        print(self.output_panda)
+        # print(self.output_panda)
 
         return json.dumps(self.output_panda.to_dict('records'))
