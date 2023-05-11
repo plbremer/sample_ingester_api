@@ -11,6 +11,12 @@ from generatesubstringmatches import GenerateSubstringMatches
 from addtermstovocab import AddTermsToVocabularyResource
 from trainvocabulary import TrainVocabularyResource
 
+from addstudytodatabase import AddStudyToDatabase
+
+from authorID import AuthorID
+from studyID import StudyID
+from samples import Samples
+
 app=Flask(__name__)
 api=Api(app)
 
@@ -21,6 +27,12 @@ api.add_resource(ValidateTermsForTrainingResource,'/validatetermsfortrainingreso
 api.add_resource(GenerateSubstringMatches,'/generatesubstringmatchesresource/')
 api.add_resource(AddTermsToVocabularyResource,'/addtermstovocabularyresource/')
 api.add_resource(TrainVocabularyResource,'/trainvocabularyresource/')
+
+api.add_resource(AddStudyToDatabase,'/addstudytodatabase/')
+
+api.add_resource(AuthorID,'/authorid/')
+api.add_resource(StudyID,'/studyid/')
+api.add_resource(Samples,'/samples/')
 
 
 
