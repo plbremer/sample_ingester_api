@@ -24,17 +24,20 @@ class AuthorID(Resource):
             select distinct author_id from study_table
             '''
         )
+        output=json.dumps([dict(r) for r in temp_cursor])
+        
 
-        if (temp_cursor.rowcount <= 0):
+
+        if (len(output) <= 0):
             connection.close()
             #https://stackoverflow.com/questions/8645250/how-to-close-sqlalchemy-connection-in-mysql
             engine.dispose()
             print('row count of final result cursor less than 1')
             return 'fail'
         else:
-            temp_result=json.dumps([dict(r) for r in temp_cursor])
+            
             connection.close()
             #https://stackoverflow.com/questions/8645250/how-to-close-sqlalchemy-connection-in-mysql
             engine.dispose()
             #print(temp_result)
-            return temp_result   
+            return output
