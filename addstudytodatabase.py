@@ -102,20 +102,3 @@ class AddStudyToDatabase(Resource):
             'author_id':self.author_id,
             'study_id':self.study_id
         }
-
-        # self.header=request.json['header']
-        # self.written_strings=request.json['new_vocabulary']
-        
-
-        # self.validate_vocabulary_request()
-
-        # if len(self.NewVocabularyUploadChecker.error_list)>0:
-        #     return {'errors':self.NewVocabularyUploadChecker.error_list}
-
-        # self.read_files()
-
-        # self.append_to_conglomerate_panda()
-
-        # self.write_files()
-        
-        # return {'errors':self.NewVocabularyUploadChecker.error_list}
