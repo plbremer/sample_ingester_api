@@ -1,8 +1,14 @@
 from flask_restful import Resource 
 import pandas as pd
 from flask import request
+import sqlalchemy
 
 from newvocabularyuploadchecker import NewVocabularyUploadChecker
+
+
+
+engine=sqlalchemy.create_engine(f"sqlite:///additional_files/sample_ingester_database.db")
+
 
 class AddTermsToVocabularyResource(Resource):
 
@@ -20,11 +26,11 @@ class AddTermsToVocabularyResource(Resource):
         if len(self.NewVocabularyUploadChecker.error_list)>0:
             return {'errors':self.NewVocabularyUploadChecker.error_list}
 
-        self.read_files()
-
-        self.append_to_conglomerate_panda()
-
-        self.write_files()
+        # one of the major points of switching to db was to avoid these three steps
+        # self.read_files()
+        # self.append_to_conglomerate_panda()
+        # self.write_files()
+        self.append_new_vocab_to_table()
         
         return {'errors':self.NewVocabularyUploadChecker.error_list}
 
@@ -67,3 +73,43 @@ class AddTermsToVocabularyResource(Resource):
 
     def write_files(self):
         self.conglomerate_vocabulary_panda.to_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
+
+    def append_new_vocab_to_table(self):
+        appending_dict={
+            'valid_string':[],
+            'node_id':[],
+            'main_string':[],
+            'ontology':[],
+            'use_count':[],
+            'header':[]
+        }
+        for temp_addition in self.written_strings:
+            appending_dict['valid_string'].append(temp_addition)
+            appending_dict['node_id'].append(temp_addition)
+            appending_dict['main_string'].append(temp_addition)
+            appending_dict['ontology'].append('userAdded')
+            appending_dict['use_count'].append(1)
+            appending_dict['header'].append(self.header)
+        appending_panda=pd.DataFrame.from_dict(appending_dict)
+
+        # self.conglomerate_vocabulary_panda=pd.concat(
+        #     [self.conglomerate_vocabulary_panda,appending_panda],
+        #     axis='index',
+        #     ignore_index=True,
+        # )
+
+        connection=engine.connect()
+
+        for index,series in appending_panda.iterrows():
+
+            try:
+                series.to_sql(
+                    'vocab_table',
+                    connection,
+                    if_exists='append',
+                    index=False
+                )
+            except:
+                continue
+
+        connection.close()
