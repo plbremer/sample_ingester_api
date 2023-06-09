@@ -76,7 +76,12 @@ class TrainVocabularyResource(Resource):
 
 
     def train_models(self):
-    #for temp_key in new_vocab_dict.keys():
+        '''
+        blah
+
+        :meta private:
+        '''
+        #for temp_key in new_vocab_dict.keys():
         self.model_vocabulary=self.conglomerate_vocabulary_panda['valid_string'].unique()
         self.TfidfVectorizer=TfidfVectorizer(
             analyzer='char',
