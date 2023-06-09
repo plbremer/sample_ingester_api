@@ -95,16 +95,6 @@
 <dt class="sig sig-object py" id="trainvocabulary.TrainVocabularyResource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">trainvocabulary.</span></span><span class="sig-name descname"><span class="pre">TrainVocabularyResource</span></span><a class="headerlink" href="#trainvocabulary.TrainVocabularyResource" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="trainvocabulary.TrainVocabularyResource.coerce_db_into_conglomerate_panda">
-<span class="sig-name descname"><span class="pre">coerce_db_into_conglomerate_panda</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trainvocabulary.TrainVocabularyResource.coerce_db_into_conglomerate_panda" title="Permalink to this definition"></a></dt>
-<dd><p>originally,we did not use a database, rather just a large panda.bin to hold the vocab info.
-we were motivated to switch to a .db in order ot make vocab additions very fast 
-everything was working if we started with the conglomerate panda
-so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
-without otuputting the small conglomerate files or unique vocab term files</p>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="trainvocabulary.TrainVocabularyResource.endpoint">
 <span class="sig-name descname"><span class="pre">endpoint</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'trainvocabularyresource'</span></em><a class="headerlink" href="#trainvocabulary.TrainVocabularyResource.endpoint" title="Permalink to this definition"></a></dt>
@@ -128,16 +118,6 @@ without otuputting the small conglomerate files or unique vocab term files</p>
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trainvocabulary.TrainVocabularyResource.post" title="Permalink to this definition"></a></dt>
 <dd><p>takes a set of words and add them to the vocabularies and models</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="trainvocabulary.TrainVocabularyResource.read_files">
-<span class="sig-name descname"><span class="pre">read_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trainvocabulary.TrainVocabularyResource.read_files" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="trainvocabulary.TrainVocabularyResource.write_models">
-<span class="sig-name descname"><span class="pre">write_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trainvocabulary.TrainVocabularyResource.write_models" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

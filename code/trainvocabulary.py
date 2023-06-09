@@ -22,6 +22,8 @@ class TrainVocabularyResource(Resource):
         everything was working if we started with the conglomerate panda
         so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
         without otuputting the small conglomerate files or unique vocab term files
+
+        :meta private:
         '''
 
         fetch_vocab_string=f'''
@@ -69,6 +71,9 @@ class TrainVocabularyResource(Resource):
 
 
     def read_files(self):
+        '''
+        :meta private:
+        '''
         # self.conglomerate_vocabulary_panda=pd.read_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
         with open('../additional_files/ngram_limits_per_heading.json', 'r') as fp:
@@ -100,6 +105,9 @@ class TrainVocabularyResource(Resource):
 
 
     def write_models(self):
+        '''
+        :meta private:
+        '''
 
         with open(f'../additional_files/tfidfVectorizer_{self.header}.bin','wb') as fp:
             pickle.dump(self.TfidfVectorizer,fp)
