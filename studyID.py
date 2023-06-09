@@ -10,7 +10,7 @@ import os
 
 class StudyID(Resource):
 
-    def get(self):
+    def post(self):
 
         self.provided_author_id=request.json['author_id']
         print(self.provided_author_id)

@@ -10,7 +10,7 @@ import os
 
 class AuthorID(Resource):
 
-    def get(self):
+    def post(self):
 
         self.database_relative_address='./additional_files/sample_ingester_database.db'
 

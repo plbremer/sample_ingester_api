@@ -10,7 +10,7 @@ import os
 
 class Samples(Resource):
 
-    def get(self):
+    def post(self):
 
         self.provided_study_id=request.json['study_id']
 
