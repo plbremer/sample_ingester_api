@@ -1,0 +1,20 @@
+code
+====
+
+.. toctree::
+   :maxdepth: 4
+
+   addstudytodatabase
+   addtermstovocab
+   authorID
+   authors
+   generatesubstringmatches
+   newvocabularyuploadchecker
+   parentapi
+   predictvocabularyterms
+   retrievevocabrows
+   samples
+   studyID
+   trainvocabulary
+   updateusecount
+   validatetermsfortraining

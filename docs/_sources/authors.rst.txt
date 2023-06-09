@@ -1,0 +1,7 @@
+authors module
+==============
+
+.. automodule:: authors
+   :members:
+   :undoc-members:
+   :show-inheritance:

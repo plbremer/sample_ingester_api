@@ -1,0 +1,7 @@
+parentapi module
+================
+
+.. automodule:: parentapi
+   :members:
+   :undoc-members:
+   :show-inheritance:
