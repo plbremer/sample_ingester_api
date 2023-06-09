@@ -9,7 +9,7 @@ from flask import request
 from pprint import pprint
 import sqlalchemy
 
-engine=sqlalchemy.create_engine(f"sqlite:///additional_files/sample_ingester_database.db")
+engine=sqlalchemy.create_engine(f"sqlite:///../additional_files/sample_ingester_database.db")
 
 
 class PredictVocabularyTermsResource(Resource):
@@ -52,14 +52,14 @@ class PredictVocabularyTermsResource(Resource):
 
 
     def read_files(self):
-        with open(f'additional_files/NearestNeighbors_{self.header}.bin','rb') as f:
+        with open(f'../additional_files/NearestNeighbors_{self.header}.bin','rb') as f:
             self.nearest_neighbors=pickle.load(f)
-        with open(f'additional_files/tfidfVectorizer_{self.header}.bin','rb') as f:
+        with open(f'../additional_files/tfidfVectorizer_{self.header}.bin','rb') as f:
             self.tfidf_vectorizer=pickle.load(f)
         
         
-        # self.conglomerate_vocabulary_panda=pd.read_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
-        # self.vocabulary=pd.read_pickle(f'additional_files/unique_valid_strings_{self.header}.bin')[0].values
+        # self.conglomerate_vocabulary_panda=pd.read_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
+        # self.vocabulary=pd.read_pickle(f'../additional_files/unique_valid_strings_{self.header}.bin')[0].values
         #we can get the fully vocab on the fly because if the nearest neighbors model is trained up to the nth term
         #then we can only map back up to the nth term
         #the n+ith new term will not be possible to reach
@@ -67,7 +67,7 @@ class PredictVocabularyTermsResource(Resource):
         #and then make the unique directly from the conglomerate
 
 
-        temp_translator=pd.read_csv(f'assets/prediction_short_string_translations.tsv',sep='\t',na_filter=False)
+        temp_translator=pd.read_csv(f'../assets/prediction_short_string_translations.tsv',sep='\t',na_filter=False)
         self.short_string_translator=dict(zip(temp_translator.short.tolist(),temp_translator.long.tolist()))
 
 
@@ -127,8 +127,7 @@ class PredictVocabularyTermsResource(Resource):
             )
 
     def post(self):
-        '''
-        '''
+        '''make a prediction about vocabulary'''
 
         self.header=request.json['header']
         self.written_strings=request.json['written_strings']

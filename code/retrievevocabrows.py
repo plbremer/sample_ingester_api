@@ -5,7 +5,7 @@ import sqlalchemy
 import json
 
 
-engine=sqlalchemy.create_engine(f"sqlite:///additional_files/sample_ingester_database.db")
+engine=sqlalchemy.create_engine(f"sqlite:///../additional_files/sample_ingester_database.db")
 
 class RetrieveVocabRowsResource(Resource):
 

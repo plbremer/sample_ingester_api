@@ -7,7 +7,7 @@ from newvocabularyuploadchecker import NewVocabularyUploadChecker
 
 
 
-engine=sqlalchemy.create_engine(f"sqlite:///additional_files/sample_ingester_database.db")
+engine=sqlalchemy.create_engine(f"sqlite:///../additional_files/sample_ingester_database.db")
 
 
 class AddTermsToVocabularyResource(Resource):
@@ -36,7 +36,7 @@ class AddTermsToVocabularyResource(Resource):
 
 
     def read_files(self):
-        self.conglomerate_vocabulary_panda=pd.read_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
+        self.conglomerate_vocabulary_panda=pd.read_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
     def validate_vocabulary_request(self):
         self.NewVocabularyUploadChecker=NewVocabularyUploadChecker(self.written_strings)
@@ -72,7 +72,7 @@ class AddTermsToVocabularyResource(Resource):
 
 
     def write_files(self):
-        self.conglomerate_vocabulary_panda.to_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
+        self.conglomerate_vocabulary_panda.to_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
     def append_new_vocab_to_table(self):
         appending_dict={

@@ -4,17 +4,17 @@ COPY ./sample_ingester_api_min.yml /
 
 RUN conda env create -f sample_ingester_api_min.yml 
 
-RUN mkdir /assets && mkdir /additional_files
+RUN mkdir /assets && mkdir /additional_files && mkdir /code
 
 COPY ./assets/* /assets/
 
 COPY ./additional_files/* /additional_files/
 
-COPY ./*.py ./
+COPY ./code/*.py ./code/
 
 
 
-WORKDIR ./
+WORKDIR ./code
 
 EXPOSE 4999
 

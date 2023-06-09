@@ -4,13 +4,13 @@ from flask import request
 import sqlalchemy
 import json
 
-engine=sqlalchemy.create_engine(f"sqlite:///additional_files/sample_ingester_database.db")
+engine=sqlalchemy.create_engine(f"sqlite:///../additional_files/sample_ingester_database.db")
 
 
 class GenerateSubstringMatches(Resource):
 
     def read_files(self):
-        self.conglomerate_vocabulary_panda=pd.read_pickle(f'additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
+        self.conglomerate_vocabulary_panda=pd.read_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
     def coerce_db_into_conglomerate_panda(self):
         '''

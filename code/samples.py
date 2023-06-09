@@ -8,11 +8,14 @@ import json
 import os
 
 
-class AuthorID(Resource):
+class Samples(Resource):
 
     def post(self):
 
-        self.database_relative_address='./additional_files/sample_ingester_database.db'
+        self.provided_study_id=request.json['study_id']
+
+
+        self.database_relative_address='./../additional_files/sample_ingester_database.db'
 
         engine=sqlalchemy.create_engine(f"sqlite:///{self.database_relative_address}")
 
@@ -20,10 +23,12 @@ class AuthorID(Resource):
 
         connection=engine.connect()
         temp_cursor=connection.execute(
-            '''
-            select distinct author_id from study_table
+            f'''
+            select * from study_table where study_id="{self.provided_study_id}"
             '''
         )
+
+
         output=json.dumps([dict(r) for r in temp_cursor])
         
 

@@ -80,9 +80,9 @@ class AddStudyToDatabase(Resource):
         takes a set of words and add them to the vocabularies and models
         '''
 
-        self.database_relative_address='./additional_files/sample_ingester_database.db'
+        self.database_relative_address='./../additional_files/sample_ingester_database.db'
 
-        print(os.listdir('./additional_files/'))
+        print(os.listdir('./../additional_files/'))
         print('8'*100)
 
         self.provided_author_name=request.json['provided_author_name']

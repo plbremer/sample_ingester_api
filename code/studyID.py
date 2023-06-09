@@ -15,7 +15,7 @@ class StudyID(Resource):
         self.provided_author_id=request.json['author_id']
         print(self.provided_author_id)
 
-        self.database_relative_address='./additional_files/sample_ingester_database.db'
+        self.database_relative_address='./../additional_files/sample_ingester_database.db'
 
         engine=sqlalchemy.create_engine(f"sqlite:///{self.database_relative_address}")
 
