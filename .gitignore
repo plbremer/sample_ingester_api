@@ -1,3 +1,4 @@
 *.bin
 *.json
  conda_Dockerfile
+*.db
