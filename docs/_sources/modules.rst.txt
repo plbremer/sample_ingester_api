@@ -8,8 +8,6 @@ code
    addtermstovocab
    authorID
    generatesubstringmatches
-   newvocabularyuploadchecker
-   parentapi
    predictvocabularyterms
    retrievevocabrows
    samples
