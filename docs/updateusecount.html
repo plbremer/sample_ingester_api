@@ -49,7 +49,6 @@
 <li class="toctree-l2"><a class="reference internal" href="addstudytodatabase.html">addstudytodatabase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="addtermstovocab.html">addtermstovocab module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorID.html">authorID module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authors.html">authors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generatesubstringmatches.html">generatesubstringmatches module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="newvocabularyuploadchecker.html">newvocabularyuploadchecker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parentapi.html">parentapi module</a></li>
@@ -116,28 +115,40 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="updateusecount.UpdateUseCountResource.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#updateusecount.UpdateUseCountResource.post" title="Permalink to this definition"></a></dt>
-<dd><p>takes a set of words and add them to the vocabularies and models</p>
+<dd><p>update the use_count column in the vocab table. change from 0 to 1 if used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>str</em>) – which vocabulary to train</p></li>
+<li><p><strong>main_string</strong> (<em>str</em>) – str of main_string to update. we update main_string to change all associated rows</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>success status</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>{</dt><dd><p>“header”:”species”,
+“main_string”:”Bacteria”</p>
+</dd>
+</dl>
+<p>}</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="updateusecount.UpdateUseCountResource.update_db">
 <span class="sig-name descname"><span class="pre">update_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#updateusecount.UpdateUseCountResource.update_db" title="Permalink to this definition"></a></dt>
 <dd><p>originally,we did not use a database, rather just a large panda.bin to hold the vocab info.
-we were motivated to switch to a .db in order ot make vocab additions very fast 
+we were motivated to switch to a .db in order ot make vocab additions very fast
 everything was working if we started with the conglomerate panda
 so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
-without otuputting the small conglomerate files or unique vocab term files</p>
+without otuputting the small conglomerate files or unique vocab term files
+:meta private:</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="updateusecount.UpdateUseCountResource.update_use_count">
-<span class="sig-name descname"><span class="pre">update_use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#updateusecount.UpdateUseCountResource.update_use_count" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="updateusecount.UpdateUseCountResource.write_file">
-<span class="sig-name descname"><span class="pre">write_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#updateusecount.UpdateUseCountResource.write_file" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

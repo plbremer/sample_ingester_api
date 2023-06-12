@@ -49,7 +49,6 @@
 <li class="toctree-l2"><a class="reference internal" href="addstudytodatabase.html">addstudytodatabase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="addtermstovocab.html">addtermstovocab module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorID.html">authorID module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authors.html">authors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generatesubstringmatches.html">generatesubstringmatches module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="newvocabularyuploadchecker.html">newvocabularyuploadchecker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parentapi.html">parentapi module</a></li>
@@ -96,28 +95,19 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">predictvocabularyterms.</span></span><span class="sig-name descname"><span class="pre">PredictVocabularyTermsResource</span></span><a class="headerlink" href="#predictvocabularyterms.PredictVocabularyTermsResource" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="predictvocabularyterms.PredictVocabularyTermsResource.append_use_count_property">
-<span class="sig-name descname"><span class="pre">append_use_count_property</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#predictvocabularyterms.PredictVocabularyTermsResource.append_use_count_property" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="predictvocabularyterms.PredictVocabularyTermsResource.coerce_db_into_conglomerate_panda">
 <span class="sig-name descname"><span class="pre">coerce_db_into_conglomerate_panda</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#predictvocabularyterms.PredictVocabularyTermsResource.coerce_db_into_conglomerate_panda" title="Permalink to this definition"></a></dt>
 <dd><p>originally,we did not use a database, rather just a large panda.bin to hold the vocab info.
-we were motivated to switch to a .db in order ot make vocab additions very fast 
+we were motivated to switch to a .db in order ot make vocab additions very fast
 everything was working if we started with the conglomerate panda
 so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
-without otuputting the small conglomerate files or unique vocab term files</p>
+without otuputting the small conglomerate files or unique vocab term files
+:meta private:</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="predictvocabularyterms.PredictVocabularyTermsResource.endpoint">
 <span class="sig-name descname"><span class="pre">endpoint</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'predictvocabularytermsresource'</span></em><a class="headerlink" href="#predictvocabularyterms.PredictVocabularyTermsResource.endpoint" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="predictvocabularyterms.PredictVocabularyTermsResource.get_neighbors">
-<span class="sig-name descname"><span class="pre">get_neighbors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#predictvocabularyterms.PredictVocabularyTermsResource.get_neighbors" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -136,13 +126,31 @@ without otuputting the small conglomerate files or unique vocab term files</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="predictvocabularyterms.PredictVocabularyTermsResource.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#predictvocabularyterms.PredictVocabularyTermsResource.post" title="Permalink to this definition"></a></dt>
-<dd><p>make a prediction about vocabulary</p>
+<dd><p>takes a set of words and add them to a specific header’s vocabulary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>str</em>) – which vocabulary</p></li>
+<li><p><strong>writting_strings</strong> (<em>list</em>) – list of strings for which to provide nearest neighbors (NN prediction done on each)</p></li>
+<li><p><strong>neighbors_to_retrieve</strong> (<em>int</em>) – how many neighbors to provide</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of records lists, where each record is the vocab term matched to, distance, etc</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>{</dt><dd><p>“header”:”species”,
+“written_strings”:[“musk muskulus”,”homo”],
+“neighbors_to_retrieve”:100</p>
+</dd>
+</dl>
+<p>}</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="predictvocabularyterms.PredictVocabularyTermsResource.read_files">
-<span class="sig-name descname"><span class="pre">read_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#predictvocabularyterms.PredictVocabularyTermsResource.read_files" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

@@ -49,7 +49,6 @@
 <li class="toctree-l2"><a class="reference internal" href="addstudytodatabase.html">addstudytodatabase module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">addtermstovocab module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorID.html">authorID module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authors.html">authors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generatesubstringmatches.html">generatesubstringmatches module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="newvocabularyuploadchecker.html">newvocabularyuploadchecker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parentapi.html">parentapi module</a></li>
@@ -95,16 +94,6 @@
 <dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">addtermstovocab.</span></span><span class="sig-name descname"><span class="pre">AddTermsToVocabularyResource</span></span><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource.append_new_vocab_to_table">
-<span class="sig-name descname"><span class="pre">append_new_vocab_to_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource.append_new_vocab_to_table" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource.append_to_conglomerate_panda">
-<span class="sig-name descname"><span class="pre">append_to_conglomerate_panda</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource.append_to_conglomerate_panda" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource.methods">
 <span class="sig-name descname"><span class="pre">methods</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'POST'}</span></em><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource.methods" title="Permalink to this definition"></a></dt>
@@ -116,23 +105,29 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource.post" title="Permalink to this definition"></a></dt>
-<dd><p>takes a set of words and add them to the vocabularies and models</p>
+<dd><p>takes a set of words and add them to a specific header’s vocabulary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>str</em>) – which vocabulary the terms will be added to.</p></li>
+<li><p><strong>new_vocabulary</strong> (<em>list</em>) – list of strings where each string is a new term</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>errors</strong> – a list of errors associated with terms. empty if success.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>{</dt><dd><p>“header”:”species”,
+“new_vocabulary”:[“new species 1”,”new species 2”]</p>
+</dd>
+</dl>
+<p>}</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource.read_files">
-<span class="sig-name descname"><span class="pre">read_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource.read_files" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource.validate_vocabulary_request">
-<span class="sig-name descname"><span class="pre">validate_vocabulary_request</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource.validate_vocabulary_request" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="addtermstovocab.AddTermsToVocabularyResource.write_files">
-<span class="sig-name descname"><span class="pre">write_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addtermstovocab.AddTermsToVocabularyResource.write_files" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

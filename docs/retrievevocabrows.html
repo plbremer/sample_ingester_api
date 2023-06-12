@@ -49,7 +49,6 @@
 <li class="toctree-l2"><a class="reference internal" href="addstudytodatabase.html">addstudytodatabase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="addtermstovocab.html">addtermstovocab module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorID.html">authorID module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authors.html">authors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generatesubstringmatches.html">generatesubstringmatches module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="newvocabularyuploadchecker.html">newvocabularyuploadchecker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parentapi.html">parentapi module</a></li>
@@ -116,13 +115,29 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="retrievevocabrows.RetrieveVocabRowsResource.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#retrievevocabrows.RetrieveVocabRowsResource.post" title="Permalink to this definition"></a></dt>
-<dd><p>takes a set of words and add them to the vocabularies and models</p>
+<dd><p>takes a valid string and a header and allows you to see the complete row</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>str</em>) – which vocabulary</p></li>
+<li><p><strong>valid_strings</strong> (<em>list</em>) – a string that exists as a representation of a main_string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the complete row for that string in that vocabulary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>{</dt><dd><p>“header”:”organ”,
+“valid_string”:”kidney”</p>
+</dd>
+</dl>
+<p>}</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="retrievevocabrows.RetrieveVocabRowsResource.select_rows">
-<span class="sig-name descname"><span class="pre">select_rows</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#retrievevocabrows.RetrieveVocabRowsResource.select_rows" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

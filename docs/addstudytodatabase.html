@@ -49,7 +49,6 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">addstudytodatabase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="addtermstovocab.html">addtermstovocab module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorID.html">authorID module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authors.html">authors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generatesubstringmatches.html">generatesubstringmatches module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="newvocabularyuploadchecker.html">newvocabularyuploadchecker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parentapi.html">parentapi module</a></li>
@@ -96,14 +95,10 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">addstudytodatabase.</span></span><span class="sig-name descname"><span class="pre">AddStudyToDatabase</span></span><a class="headerlink" href="#addstudytodatabase.AddStudyToDatabase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="addstudytodatabase.AddStudyToDatabase.make_author_id">
-<span class="sig-name descname"><span class="pre">make_author_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addstudytodatabase.AddStudyToDatabase.make_author_id" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="addstudytodatabase.AddStudyToDatabase.make_list_of_dataframes_for_upload">
 <span class="sig-name descname"><span class="pre">make_list_of_dataframes_for_upload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addstudytodatabase.AddStudyToDatabase.make_list_of_dataframes_for_upload" title="Permalink to this definition"></a></dt>
-<dd><p>the basic idea is that we make a dataframe</p>
+<dd><p>the basic idea is that we make a dataframe
+:meta private:</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -117,13 +112,30 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="addstudytodatabase.AddStudyToDatabase.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addstudytodatabase.AddStudyToDatabase.post" title="Permalink to this definition"></a></dt>
-<dd><p>takes a set of words and add them to the vocabularies and models</p>
+<dd><p>takes a post-curation study and adds it to database for downstream retrieval</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>provided_author_name</strong> (<em>str</em>) – provided author name. will be coerced to authorID</p></li>
+<li><p><strong>sample_metadata_sheet_panda</strong> (<em>json</em>) – records representation of study metadata</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>author_id</strong> (<em>str</em>) – provided_author_name without spaces and lowercased</p></li>
+<li><p><strong>study_id</strong> (<em>float</em>) – millisecond time of submission using time.time()</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>{</dt><dd><p>“provided_author_name”: “Parker Bremer”,
+“sample_metadata_sheet_panda”:[{“species.0”: “Homo sapiens”, “organ.0”: “Kidney”, “cellLine.0”: “not available”, “cellCount.0”: “not available”, “mass.0”: “5.0”, “massUnit.0”: “milligram”, “drugName.0”: “control”, “drugDoseMagnitude.0”: “not available”, “drugDoseUnit.0”: “not available”}, {“species.0”: “Homo sapiens”, “organ.0”: “Kidney”, “cellLine.0”: “not available”, “cellCount.0”: “not available”, “mass.0”: “5.0”, “massUnit.0”: “milligram”, “drugName.0”: “control”, “drugDoseMagnitude.0”: “not available”, “drugDoseUnit.0”: “not available”}, {“species.0”: “Homo sapiens”, “organ.0”: “Kidney”, “cellLine.0”: “not available”, “cellCount.0”: “not available”, “mass.0”: “5.0”, “massUnit.0”: “milligram”, “drugName.0”: “control”, “drugDoseMagnitude.0”: “not available”, “drugDoseUnit.0”: “not available”}, {“species.0”: “Homo sapiens”, “organ.0”: “Kidney”, “cellLine.0”: “not available”, “cellCount.0”: “not available”, “mass.0”: “5.0”, “massUnit.0”: “milligram”, “drugName.0”: “KERENDIA”, “drugDoseMagnitude.0”: “20.0”, “drugDoseUnit.0”: “milligram”}, {“species.0”: “Homo sapiens”, “organ.0”: “Kidney”, “cellLine.0”: “not available”, “cellCount.0”: “not available”, “mass.0”: “5.0”, “massUnit.0”: “milligram”, “drugName.0”: “KERENDIA”, “drugDoseMagnitude.0”: “20.0”, “drugDoseUnit.0”: “milligram”}, {“species.0”: “Homo sapiens”, “organ.0”: “Kidney”, “cellLine.0”: “not available”, “cellCount.0”: “not available”, “mass.0”: “5.0”, “massUnit.0”: “milligram”, “drugName.0”: “KERENDIA”, “drugDoseMagnitude.0”: “20.0”, “drugDoseUnit.0”: “milligram”}, {“species.0”: “Homo sapiens”, “organ.0”: “not available”, “cellLine.0”: “HEK293”, “cellCount.0”: “1000000.0”, “mass.0”: “not available”, “massUnit.0”: “not available”, “drugName.0”: “control”, “drugDoseMagnitude.0”: “not available”, “drugDoseUnit.0”: “not available”}, {“species.0”: “Homo sapiens”, “organ.0”: “not available”, “cellLine.0”: “HEK293”, “cellCount.0”: “1000000.0”, “mass.0”: “not available”, “massUnit.0”: “not available”, “drugName.0”: “control”, “drugDoseMagnitude.0”: “not available”, “drugDoseUnit.0”: “not available”}, {“species.0”: “Homo sapiens”, “organ.0”: “not available”, “cellLine.0”: “HEK293”, “cellCount.0”: “1000000.0”, “mass.0”: “not available”, “massUnit.0”: “not available”, “drugName.0”: “control”, “drugDoseMagnitude.0”: “not available”, “drugDoseUnit.0”: “not available”}, {“species.0”: “Homo sapiens”, “organ.0”: “not available”, “cellLine.0”: “HEK293”, “cellCount.0”: “1000000.0”, “mass.0”: “not available”, “massUnit.0”: “not available”, “drugName.0”: “KERENDIA”, “drugDoseMagnitude.0”: “20.0”, “drugDoseUnit.0”: “milligram”}, {“species.0”: “Homo sapiens”, “organ.0”: “not available”, “cellLine.0”: “HEK293”, “cellCount.0”: “1000000.0”, “mass.0”: “not available”, “massUnit.0”: “not available”, “drugName.0”: “KERENDIA”, “drugDoseMagnitude.0”: “20.0”, “drugDoseUnit.0”: “milligram”}, {“species.0”: “Homo sapiens”, “organ.0”: “not available”, “cellLine.0”: “HEK293”, “cellCount.0”: “1000000.0”, “mass.0”: “not available”, “massUnit.0”: “not available”, “drugName.0”: “KERENDIA”, “drugDoseMagnitude.0”: “20.0”, “drugDoseUnit.0”: “milligram”}]</p>
+</dd>
+</dl>
+<p>}</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="addstudytodatabase.AddStudyToDatabase.upload_to_database">
-<span class="sig-name descname"><span class="pre">upload_to_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addstudytodatabase.AddStudyToDatabase.upload_to_database" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

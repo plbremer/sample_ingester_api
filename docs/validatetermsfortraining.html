@@ -48,7 +48,6 @@
 <li class="toctree-l2"><a class="reference internal" href="addstudytodatabase.html">addstudytodatabase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="addtermstovocab.html">addtermstovocab module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorID.html">authorID module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authors.html">authors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generatesubstringmatches.html">generatesubstringmatches module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="newvocabularyuploadchecker.html">newvocabularyuploadchecker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parentapi.html">parentapi module</a></li>
@@ -115,13 +114,25 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="validatetermsfortraining.ValidateTermsForTrainingResource.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#validatetermsfortraining.ValidateTermsForTrainingResource.post" title="Permalink to this definition"></a></dt>
-<dd><p>takes a set of words and add them to the vocabularies and models</p>
+<dd><p>used in the frontend to validate input. things like number of characters, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_vocabulary</strong> (<em>list</em>) – strings that will get added to a vocabulary, at all</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>errors</strong> – errors if any, otherwise length of zero</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>{</dt><dd><p>“new_vocabulary”:[“Bacteria”,”Azorhizobium”]</p>
+</dd>
+</dl>
+<p>}</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="validatetermsfortraining.ValidateTermsForTrainingResource.validate_training_request">
-<span class="sig-name descname"><span class="pre">validate_training_request</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#validatetermsfortraining.ValidateTermsForTrainingResource.validate_training_request" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

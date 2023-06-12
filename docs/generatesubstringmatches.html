@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="newvocabularyuploadchecker module" href="newvocabularyuploadchecker.html" />
-    <link rel="prev" title="authors module" href="authors.html" /> 
+    <link rel="prev" title="authorID module" href="authorID.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,7 +49,6 @@
 <li class="toctree-l2"><a class="reference internal" href="addstudytodatabase.html">addstudytodatabase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="addtermstovocab.html">addtermstovocab module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorID.html">authorID module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="authors.html">authors module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">generatesubstringmatches module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="newvocabularyuploadchecker.html">newvocabularyuploadchecker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parentapi.html">parentapi module</a></li>
@@ -95,21 +94,6 @@
 <dt class="sig sig-object py" id="generatesubstringmatches.GenerateSubstringMatches">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">generatesubstringmatches.</span></span><span class="sig-name descname"><span class="pre">GenerateSubstringMatches</span></span><a class="headerlink" href="#generatesubstringmatches.GenerateSubstringMatches" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="generatesubstringmatches.GenerateSubstringMatches.coerce_db_into_conglomerate_panda">
-<span class="sig-name descname"><span class="pre">coerce_db_into_conglomerate_panda</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generatesubstringmatches.GenerateSubstringMatches.coerce_db_into_conglomerate_panda" title="Permalink to this definition"></a></dt>
-<dd><p>originally,we did not use a database, rather just a large panda.bin to hold the vocab info.
-we were motivated to switch to a .db in order ot make vocab additions very fast 
-everything was working if we started with the conglomerate panda
-so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
-without otuputting the small conglomerate files or unique vocab term files</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="generatesubstringmatches.GenerateSubstringMatches.generate_substring_matches">
-<span class="sig-name descname"><span class="pre">generate_substring_matches</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generatesubstringmatches.GenerateSubstringMatches.generate_substring_matches" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="generatesubstringmatches.GenerateSubstringMatches.methods">
 <span class="sig-name descname"><span class="pre">methods</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'POST'}</span></em><a class="headerlink" href="#generatesubstringmatches.GenerateSubstringMatches.methods" title="Permalink to this definition"></a></dt>
@@ -121,13 +105,29 @@ without otuputting the small conglomerate files or unique vocab term files</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="generatesubstringmatches.GenerateSubstringMatches.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generatesubstringmatches.GenerateSubstringMatches.post" title="Permalink to this definition"></a></dt>
-<dd><p>takes a set of words and add them to the vocabularies and models</p>
+<dd><p>returns vocabulary terms for a header/substring pair</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>header</strong> (<em>str</em>) – which header</p></li>
+<li><p><strong>substring</strong> (<em>str</em>) – portion of string to check</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of terms with matching strings</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl class="simple">
+<dt>{</dt><dd><p>“header”:”species”,
+“substring”:”porcupi”</p>
+</dd>
+</dl>
+<p>}</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="generatesubstringmatches.GenerateSubstringMatches.read_files">
-<span class="sig-name descname"><span class="pre">read_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generatesubstringmatches.GenerateSubstringMatches.read_files" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -137,7 +137,7 @@ without otuputting the small conglomerate files or unique vocab term files</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="authors.html" class="btn btn-neutral float-left" title="authors module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="authorID.html" class="btn btn-neutral float-left" title="authorID module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="newvocabularyuploadchecker.html" class="btn btn-neutral float-right" title="newvocabularyuploadchecker module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -7,7 +7,6 @@ code
    addstudytodatabase
    addtermstovocab
    authorID
-   authors
    generatesubstringmatches
    newvocabularyuploadchecker
    parentapi
