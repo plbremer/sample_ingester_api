@@ -82,6 +82,10 @@ class TrainVocabularyResource(Resource):
         self.train_models()
         self.write_models()
         
+        # print('')
+        # print('trained a model')
+        # print('')
+
         return {'errors':False}
 
 
@@ -135,4 +139,4 @@ class TrainVocabularyResource(Resource):
             self.model_vocabulary
         )
 
-        output_vocab_panda.to_pickle(f'../additional_files/unique_valid_strings_{self.header}.bin')
+        # output_vocab_panda.to_pickle(f'../additional_files/unique_valid_strings_{self.header}.bin')

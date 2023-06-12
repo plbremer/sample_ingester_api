@@ -51,6 +51,8 @@ class AddTermsToVocabularyResource(Resource):
         # self.write_files()
         self.append_new_vocab_to_table()
         
+        print(f'added {self.written_strings} to {self.header}')
+
         return {'errors':self.NewVocabularyUploadChecker.error_list}
 
 
@@ -125,16 +127,19 @@ class AddTermsToVocabularyResource(Resource):
 
         connection=engine.connect()
 
-        for index,series in appending_panda.iterrows():
+        # print(appending_panda)
 
-            try:
-                series.to_sql(
-                    'vocab_table',
-                    connection,
-                    if_exists='append',
-                    index=False
-                )
-            except:
-                continue
+
+        # for index,series in appending_panda.iterrows():
+
+            # try:
+        appending_panda.to_sql(
+            'vocab_table',
+            connection,
+            if_exists='append',
+            index=False
+        )
+            # except:
+                # continue
 
         connection.close()

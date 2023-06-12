@@ -32,7 +32,7 @@ class PredictVocabularyTermsResource(Resource):
         '''
 
         # engine=sqlalchemy.create_engine(f"sqlite:///{self.database_address}")
-        print('got here')
+        # print('got here')
         connection=engine.connect()
 
 
@@ -48,7 +48,7 @@ class PredictVocabularyTermsResource(Resource):
         # engine.dispose()
 
         self.conglomerate_vocabulary_panda=pd.read_json(temp_result, orient="records")
-        print(self.conglomerate_vocabulary_panda)
+        # print(self.conglomerate_vocabulary_panda)
         self.vocabulary=self.conglomerate_vocabulary_panda['valid_string'].unique()
 
 
@@ -84,7 +84,7 @@ class PredictVocabularyTermsResource(Resource):
             try:
                 vectorized_string=self.tfidf_vectorizer.transform([str(written_string)])
             except NotFittedError:
-                print('not fitted')
+                # print('not fitted')
                 neighbors_df=pd.DataFrame.from_dict(
                     {
                         'guessed_valid_strings':[None],
