@@ -11,6 +11,22 @@ import os
 class AuthorID(Resource):
 
     def post(self):
+        '''
+        a starting point for exploring the study table. returns all authorIDs.
+
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        author_id : list
+            a list of study author IDs
+
+        Examples
+        --------
+        {}
+        '''
 
         self.database_relative_address='./../additional_files/sample_ingester_database.db'
 

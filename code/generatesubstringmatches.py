@@ -10,6 +10,7 @@ engine=sqlalchemy.create_engine(f"sqlite:///../additional_files/sample_ingester_
 class GenerateSubstringMatches(Resource):
 
     def read_files(self):
+        ''':meta private:'''
         self.conglomerate_vocabulary_panda=pd.read_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
     def coerce_db_into_conglomerate_panda(self):
@@ -19,6 +20,8 @@ class GenerateSubstringMatches(Resource):
         everything was working if we started with the conglomerate panda
         so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
         without otuputting the small conglomerate files or unique vocab term files
+        
+        :meta private:
         '''
 
         fetch_vocab_string=f'''
@@ -55,6 +58,7 @@ class GenerateSubstringMatches(Resource):
 
     def generate_substring_matches(self):
         '''
+        :meta private:
         '''
         # print(self.conglomerate_vocabulary_panda.loc[
         #     self.conglomerate_vocabulary_panda['valid_string'].str.contains(self.substring.lower())
@@ -69,7 +73,26 @@ class GenerateSubstringMatches(Resource):
 
     def post(self):
         '''
-        takes a set of words and add them to the vocabularies and models
+        returns vocabulary terms for a header/substring pair
+
+        Parameters
+        ----------
+        header : str
+            which header
+        substring : str
+            portion of string to check
+        
+        Returns
+        -------
+        list
+            a list of terms with matching strings
+
+        Examples
+        --------
+        {
+            "header":"species",
+            "substring":"porcupi"
+        }
         '''
 
         self.header=request.json['header']

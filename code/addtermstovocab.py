@@ -15,7 +15,26 @@ class AddTermsToVocabularyResource(Resource):
 
     def post(self):
         '''
-        takes a set of words and add them to the vocabularies and models
+        takes a set of words and add them to a specific header's vocabulary
+
+        Parameters
+        ----------
+        header : str
+            which vocabulary the terms will be added to. 
+        new_vocabulary : list
+            list of strings where each string is a new term
+        
+        Returns
+        -------
+        errors : list
+            a list of errors associated with terms. empty if success.
+
+        Examples
+        --------
+        {
+            "header":"species",
+            "new_vocabulary":["new species 1","new species 2"]
+        }
         '''
         self.header=request.json['header']
         self.written_strings=request.json['new_vocabulary']
@@ -36,15 +55,18 @@ class AddTermsToVocabularyResource(Resource):
 
 
     def read_files(self):
+        ''':meta private:'''
         self.conglomerate_vocabulary_panda=pd.read_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
     def validate_vocabulary_request(self):
+        ''':meta private:'''
         self.NewVocabularyUploadChecker=NewVocabularyUploadChecker(self.written_strings)
         self.NewVocabularyUploadChecker.check_char_length()
         self.NewVocabularyUploadChecker.verify_string_absence()
 
 
     def append_to_conglomerate_panda(self):
+        ''':meta private:'''
     #now, for each key in this dict, append to the corresponding panda in the conglomerate dict, then output it again
         appending_dict={
             'valid_string':[],
@@ -72,9 +94,12 @@ class AddTermsToVocabularyResource(Resource):
 
 
     def write_files(self):
+        ''':meta private:'''
         self.conglomerate_vocabulary_panda.to_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
     def append_new_vocab_to_table(self):
+        ''':meta private:'''
+
         appending_dict={
             'valid_string':[],
             'node_id':[],

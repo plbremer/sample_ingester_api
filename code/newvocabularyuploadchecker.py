@@ -4,10 +4,13 @@ class NewVocabularyUploadChecker:
     '''
 
     def __init__(self,vocabulary_list):
+        ''':meta private:'''
         self.vocabulary_list=vocabulary_list
         self.error_list=list()
         
     def check_char_length(self):
+        '''
+        '''
         for new_vocab_term in self.vocabulary_list:
             if new_vocab_term is None:
                 continue
@@ -17,6 +20,8 @@ class NewVocabularyUploadChecker:
                 )
 
     def verify_string_absence(self):
+        '''
+        '''
         forbidden_string_list=[
             ' AKA '
         ]

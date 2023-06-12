@@ -11,7 +11,25 @@ import os
 class Samples(Resource):
 
     def post(self):
+        '''
+        returns all samples for a given study
 
+        Parameters
+        ----------
+        study_id : str
+            the time at which the study was submitted
+
+        Returns
+        -------
+        list
+            list of records, where each record is a row in the study metadata
+
+        Examples
+        --------
+        {
+            "study_id":"1686247553.2546"
+        }
+        '''
         self.provided_study_id=request.json['study_id']
 
 

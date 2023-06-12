@@ -11,7 +11,25 @@ import os
 class StudyID(Resource):
 
     def post(self):
+        '''
+        returns all studyIDs for a given author
 
+        Parameters
+        ----------
+        author_id : str
+            the author ID in question
+
+        Returns
+        -------
+        errors:list
+            list of relevant studyIDs
+
+        Examples
+        --------
+        {
+            "author_id":"parkerbremer"
+        }
+        '''
         self.provided_author_id=request.json['author_id']
         print(self.provided_author_id)
 

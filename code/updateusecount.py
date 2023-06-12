@@ -15,6 +15,7 @@ class UpdateUseCountResource(Resource):
         everything was working if we started with the conglomerate panda
         so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
         without otuputting the small conglomerate files or unique vocab term files
+        :meta private:
         '''
 
         update_usecount_string=f'''
@@ -47,20 +48,44 @@ class UpdateUseCountResource(Resource):
     #     self.conglomerate_vocabulary_panda=pd.read_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
     def update_use_count(self):
-    #now, for each key in this dict, append to the corresponding panda in the conglomerate dict, then output it again
+        '''
+        :meta private:
+        '''
+        #now, for each key in this dict, append to the corresponding panda in the conglomerate dict, then output it again
         self.conglomerate_vocabulary_panda['use_count']=self.conglomerate_vocabulary_panda['use_count'].where(
             (~self.conglomerate_vocabulary_panda.main_string.isin([self.main_string])),
             other=1
         )
 
     def write_file(self):
-
+        '''
+        :meta private:
+        '''
         self.conglomerate_vocabulary_panda.to_pickle(f'../additional_files/conglomerate_vocabulary_panda_{self.header}.bin')
 
 
     def post(self):
         '''
-        takes a set of words and add them to the vocabularies and models
+        update the use_count column in the vocab table. change from 0 to 1 if used.
+
+        Parameters
+        ----------
+        header : str
+            which vocabulary to train
+        main_string : str
+            str of main_string to update. we update main_string to change all associated rows
+
+        Returns
+        -------
+        str
+            success status
+
+        Examples
+        --------
+        {
+            "header":"species",
+            "main_string":"Bacteria"
+        }
         '''
 
         self.header=request.json['header']

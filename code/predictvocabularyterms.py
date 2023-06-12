@@ -21,6 +21,7 @@ class PredictVocabularyTermsResource(Resource):
         everything was working if we started with the conglomerate panda
         so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
         without otuputting the small conglomerate files or unique vocab term files
+        :meta private:
         '''
 
         fetch_vocab_string=f'''
@@ -52,6 +53,9 @@ class PredictVocabularyTermsResource(Resource):
 
 
     def read_files(self):
+        '''
+        :meta private:
+        '''
         with open(f'../additional_files/NearestNeighbors_{self.header}.bin','rb') as f:
             self.nearest_neighbors=pickle.load(f)
         with open(f'../additional_files/tfidfVectorizer_{self.header}.bin','rb') as f:
@@ -73,6 +77,9 @@ class PredictVocabularyTermsResource(Resource):
 
 
     def get_neighbors(self):
+        '''
+        :meta private:
+        '''
         for written_string in self.written_strings:
             try:
                 vectorized_string=self.tfidf_vectorizer.transform([str(written_string)])
@@ -110,6 +117,9 @@ class PredictVocabularyTermsResource(Resource):
             self.neighbors_panda_list.append(neighbors_df)
 
     def append_use_count_property(self):
+        '''
+        :meta private:
+        '''
         #originally we had a for loop, but the problem with that was taht was that we were getting a result for each 
         #valid string that the written string mapped to. this meant that we coudl get the same main strin multiple times.
         for i in range(len(self.neighbors_panda_list)):
@@ -127,7 +137,31 @@ class PredictVocabularyTermsResource(Resource):
             )
 
     def post(self):
-        '''make a prediction about vocabulary'''
+        '''
+        takes a set of words and add them to a specific header's vocabulary
+
+        Parameters
+        ----------
+        header : str
+            which vocabulary
+        writting_strings : list
+            list of strings for which to provide nearest neighbors (NN prediction done on each)
+        neighbors_to_retrieve: int
+            how many neighbors to provide
+
+        Returns
+        -------
+        list
+            a list of records lists, where each record is the vocab term matched to, distance, etc
+
+        Examples
+        --------
+        {
+            "header":"species",
+            "written_strings":["musk muskulus","homo"],
+            "neighbors_to_retrieve":100
+        }
+        '''
 
         self.header=request.json['header']
         self.written_strings=request.json['written_strings']

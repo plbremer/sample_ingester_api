@@ -10,6 +10,9 @@ import os
 class AddStudyToDatabase(Resource):
 
     def make_author_id(self):
+        '''
+        :meta private:
+        '''
 
         self.author_id=''.join(
             [temp_char.lower() for temp_char in self.provided_author_name if(temp_char.isalpha()==True)]
@@ -18,6 +21,7 @@ class AddStudyToDatabase(Resource):
     def make_list_of_dataframes_for_upload(self):
         '''
         the basic idea is that we make a dataframe 
+        :meta private:
         '''
 
         self.study_id=time.time()
@@ -58,7 +62,10 @@ class AddStudyToDatabase(Resource):
 
 
     def upload_to_database(self):
-
+        '''
+        :meta private:
+        '''
+        
         engine=sqlalchemy.create_engine(f"sqlite:///{self.database_relative_address}")
         print(engine)
         print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==')
@@ -77,7 +84,28 @@ class AddStudyToDatabase(Resource):
 
     def post(self):
         '''
-        takes a set of words and add them to the vocabularies and models
+        takes a post-curation study and adds it to database for downstream retrieval
+        
+        Parameters
+        ----------
+        provided_author_name : str
+            provided author name. will be coerced to authorID
+        sample_metadata_sheet_panda : json
+            records representation of study metadata
+        
+        Returns
+        -------
+        author_id : str
+            provided_author_name without spaces and lowercased
+        study_id : float
+            millisecond time of submission using time.time()
+
+        Examples
+        --------
+        {
+            "provided_author_name": "Parker Bremer",
+            "sample_metadata_sheet_panda":[{"species.0": "Homo sapiens", "organ.0": "Kidney", "cellLine.0": "not available", "cellCount.0": "not available", "mass.0": "5.0", "massUnit.0": "milligram", "drugName.0": "control", "drugDoseMagnitude.0": "not available", "drugDoseUnit.0": "not available"}, {"species.0": "Homo sapiens", "organ.0": "Kidney", "cellLine.0": "not available", "cellCount.0": "not available", "mass.0": "5.0", "massUnit.0": "milligram", "drugName.0": "control", "drugDoseMagnitude.0": "not available", "drugDoseUnit.0": "not available"}, {"species.0": "Homo sapiens", "organ.0": "Kidney", "cellLine.0": "not available", "cellCount.0": "not available", "mass.0": "5.0", "massUnit.0": "milligram", "drugName.0": "control", "drugDoseMagnitude.0": "not available", "drugDoseUnit.0": "not available"}, {"species.0": "Homo sapiens", "organ.0": "Kidney", "cellLine.0": "not available", "cellCount.0": "not available", "mass.0": "5.0", "massUnit.0": "milligram", "drugName.0": "KERENDIA", "drugDoseMagnitude.0": "20.0", "drugDoseUnit.0": "milligram"}, {"species.0": "Homo sapiens", "organ.0": "Kidney", "cellLine.0": "not available", "cellCount.0": "not available", "mass.0": "5.0", "massUnit.0": "milligram", "drugName.0": "KERENDIA", "drugDoseMagnitude.0": "20.0", "drugDoseUnit.0": "milligram"}, {"species.0": "Homo sapiens", "organ.0": "Kidney", "cellLine.0": "not available", "cellCount.0": "not available", "mass.0": "5.0", "massUnit.0": "milligram", "drugName.0": "KERENDIA", "drugDoseMagnitude.0": "20.0", "drugDoseUnit.0": "milligram"}, {"species.0": "Homo sapiens", "organ.0": "not available", "cellLine.0": "HEK293", "cellCount.0": "1000000.0", "mass.0": "not available", "massUnit.0": "not available", "drugName.0": "control", "drugDoseMagnitude.0": "not available", "drugDoseUnit.0": "not available"}, {"species.0": "Homo sapiens", "organ.0": "not available", "cellLine.0": "HEK293", "cellCount.0": "1000000.0", "mass.0": "not available", "massUnit.0": "not available", "drugName.0": "control", "drugDoseMagnitude.0": "not available", "drugDoseUnit.0": "not available"}, {"species.0": "Homo sapiens", "organ.0": "not available", "cellLine.0": "HEK293", "cellCount.0": "1000000.0", "mass.0": "not available", "massUnit.0": "not available", "drugName.0": "control", "drugDoseMagnitude.0": "not available", "drugDoseUnit.0": "not available"}, {"species.0": "Homo sapiens", "organ.0": "not available", "cellLine.0": "HEK293", "cellCount.0": "1000000.0", "mass.0": "not available", "massUnit.0": "not available", "drugName.0": "KERENDIA", "drugDoseMagnitude.0": "20.0", "drugDoseUnit.0": "milligram"}, {"species.0": "Homo sapiens", "organ.0": "not available", "cellLine.0": "HEK293", "cellCount.0": "1000000.0", "mass.0": "not available", "massUnit.0": "not available", "drugName.0": "KERENDIA", "drugDoseMagnitude.0": "20.0", "drugDoseUnit.0": "milligram"}, {"species.0": "Homo sapiens", "organ.0": "not available", "cellLine.0": "HEK293", "cellCount.0": "1000000.0", "mass.0": "not available", "massUnit.0": "not available", "drugName.0": "KERENDIA", "drugDoseMagnitude.0": "20.0", "drugDoseUnit.0": "milligram"}]
+        }
         '''
 
         self.database_relative_address='./../additional_files/sample_ingester_database.db'

@@ -11,7 +11,7 @@ class RetrieveVocabRowsResource(Resource):
 
     def select_rows(self):
         '''
-
+        :meta private:
         '''
 
         select_vocab_string=f'''
@@ -42,7 +42,26 @@ class RetrieveVocabRowsResource(Resource):
 
     def post(self):
         '''
-        takes a set of words and add them to the vocabularies and models
+        takes a valid string and a header and allows you to see the complete row
+
+        Parameters
+        ----------
+        header : str
+            which vocabulary
+        valid_strings : list
+            a string that exists as a representation of a main_string
+
+        Returns
+        -------
+        list
+            the complete row for that string in that vocabulary
+
+        Examples
+        --------
+        {
+            "header":"organ",
+            "valid_string":"kidney"
+        }
         '''
 
         self.header=request.json['header']

@@ -57,7 +57,23 @@ class TrainVocabularyResource(Resource):
 
     def post(self):
         '''
-        takes a set of words and add them to the vocabularies and models
+        trains the TF-IDF vectorizer and nearest neighbors model for current vocab
+
+        Parameters
+        ----------
+        header : str
+            which vocabulary to train
+
+        Returns
+        -------
+        errors:list
+            True/False on error list
+
+        Examples
+        --------
+        {
+            "header":"organ"
+        }
         '''
         self.header=request.json['header']
         self.read_files()
