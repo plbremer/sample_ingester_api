@@ -20,7 +20,6 @@ class AddStudyToDatabase(Resource):
 
     def make_list_of_dataframes_for_upload(self):
         '''
-        the basic idea is that we make a dataframe 
         :meta private:
         '''
 

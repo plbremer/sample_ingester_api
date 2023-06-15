@@ -1,7 +1,0 @@
-newvocabularyuploadchecker module
-=================================
-
-.. automodule:: newvocabularyuploadchecker
-   :members:
-   :undoc-members:
-   :show-inheritance:

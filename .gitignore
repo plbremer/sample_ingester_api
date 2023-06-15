@@ -2,4 +2,3 @@
 *.json
  conda_Dockerfile
 *.db
-/docs_prep/*

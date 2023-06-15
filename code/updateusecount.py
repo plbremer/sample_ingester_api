@@ -10,11 +10,6 @@ class UpdateUseCountResource(Resource):
 
     def update_db(self):
         '''
-        originally,we did not use a database, rather just a large panda.bin to hold the vocab info.
-        we were motivated to switch to a .db in order ot make vocab additions very fast 
-        everything was working if we started with the conglomerate panda
-        so we just insert a step where we read the .db, coerce to conglomerate panda, then proceed as we already did
-        without otuputting the small conglomerate files or unique vocab term files
         :meta private:
         '''
 
