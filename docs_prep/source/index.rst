@@ -11,7 +11,7 @@ Welcome to Metadata Standardizer's documentation!
    :caption: Documentation:
 
    deployment
-   design
+   basic_usage
 
 .. toctree::
    :maxdepth: 2
