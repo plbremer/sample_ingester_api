@@ -42,4 +42,4 @@ api.add_resource(Samples,'/samples/')
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=4999,host='0.0.0.0')
+    app.run(debug=False,port=4999,host='0.0.0.0')

@@ -170,7 +170,7 @@
    "id": "8d1a7419",
    "metadata": {},
    "source": [
-    "## Serverless"
+    "## Images"
    ]
   },
   {
@@ -178,14 +178,8 @@
    "id": "df67a4e7",
    "metadata": {},
    "source": [
-    "text"
+    "The Docker images are available directly at https://hub.docker.com/r/rictuar/sampleingester-frontend and https://hub.docker.com/r/rictuar/sampleingester-api"
    ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "e78dce56",
-   "metadata": {},
-   "source": []
   }
  ],
  "metadata": {
